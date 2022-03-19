@@ -13,10 +13,24 @@ function App() {
             }
             return res.json()
         }).then(resData => {
-            dispatch({action: action.GET_ALL_ISSUES, payload: resData.issues})
-        })
+            dispatch({type: actionType.GET_ALL_ISSUES, payload: resData.issues})
+        });
 
     }, [])
+
+    const updateIssueState = (issueId) => {
+        fetch("http://localhost:8080/issue/" + issueId, {
+            method: "PUT"
+        }).then(res => {
+            if (res.status !== 200) {
+                throw new Error('Failed to change the state.');
+            }
+            return res.json()
+        }).then(resData => {
+            dispatch({type: actionType.UPDATE_STATE, payload: resData.issue})
+            console.log(resData);
+        });
+    }
 
     return (
         <Router>
@@ -39,6 +53,7 @@ function App() {
                                     <h2>{issue.title}</h2>
                                     <p>{issue.description}</p>
                                     <p>{issue.state}</p>
+                                    <button onClick={() => updateIssueState(issue._id)}>Update state</button>
                                 </div>
                             )
                         })
@@ -54,15 +69,21 @@ export default App;
 
 const initialState = {issues: []};
 
-const action = {
-    GET_ALL_ISSUES: "GET_ALL_ISSUES"
+const actionType = {
+    GET_ALL_ISSUES: "GET_ALL_ISSUES",
+    UPDATE_STATE: "UPDATE_STATE",
 }
 
 function reducer(state, action) {
     switch (action.type) {
-        case action.GET_ALL_ISSUES:
+        case actionType.GET_ALL_ISSUES:
             return {issues: action.payload};
+        case actionType.UPDATE_STATE:
+            const newState = structuredClone(state);
+            const issueToUpdate = newState.issues.find(issue => issue._id === action.payload._id);
+            issueToUpdate.state = action.payload.state;
+            return {issues: newState.issues};
         default:
-            return state
+            throw new Error();
     }
 }
