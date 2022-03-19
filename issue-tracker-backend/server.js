@@ -1,9 +1,21 @@
-import express from 'express';
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import issueRouts from "./routes/issue.js";
 
-const app = express()
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.zselq.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`;
+const server = express();
 
-app.get('/', function (req, res) {
-    res.send('I will be a backend for issue tracker.')
-})
+server.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+server.use(bodyParser.json());
+server.use('/issue', issueRouts);
 
-app.listen(3000)
+mongoose.connect(MONGODB_URI)
+    .then(() => {
+        server.listen(8080);
+    })
+    .catch(err => console.log(err));
