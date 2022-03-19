@@ -37,7 +37,7 @@ export const updateState = async (req, res) => {
     try {
         const issue = await Issue.findById(req.params.issueId);
         if (!issue) {
-            return res.status(404).json({message: "Unable to find post."})
+            return res.status(404).json({message: "Unable to find issue."})
         }
         if (issue.state === state.OPEN) {
             issue.state = state.PENDING
@@ -48,6 +48,16 @@ export const updateState = async (req, res) => {
         }
         const modifiedIssue = await issue.save();
         res.status(200).json({ message: 'Issue state updated.', issue: modifiedIssue });
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({message: "Unable to retrieve issues."})
+    }
+};
+
+export const deleteIssue = async (req, res) => {
+    try {
+        await Issue.findByIdAndRemove(req.params.issueId);
+        res.status(200).json({ message: 'Issue deleted.'});
     } catch (e) {
         console.log(e);
         return res.status(500).json({message: "Unable to retrieve issues."})
