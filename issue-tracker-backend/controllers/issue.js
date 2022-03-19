@@ -19,3 +19,16 @@ export const createIssue = async (req, res) => {
         return res.status(500).json({message: "Unable to create issue."})
     }
 };
+
+export const getIssues = async (req, res) => {
+    try {
+        const issues = await Issue.find();
+        return res.status(200).json({
+            message: "Issues found.",
+            issues: issues
+        });
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({message: "Unable to retrieve issues."})
+    }
+};

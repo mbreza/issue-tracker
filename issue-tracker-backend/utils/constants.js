@@ -1,5 +1,5 @@
 export const state = {
-    OPEN: 'OPEN',
-    PENDING: 'PENDING',
-    CLOSED: 'CLOSED',
+    OPEN: "OPEN",
+    PENDING: "PENDING",
+    CLOSED: "CLOSED",
 }
