@@ -13,14 +13,15 @@ function App() {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(() => {
-        fetch("http://localhost:8080/issue/getAll").then(res => {
-            if (res.status !== 200) {
-                throw new Error('Failed to get issues.');
-            }
-            return res.json()
-        }).then(resData => {
-            dispatch({type: actionType.GET_ALL_ISSUES, payload: resData.issues})
-        });
+        fetch("http://localhost:8080/issue/getAll")
+            .then(res => res.json())
+            .then(resData => {
+                if(resData.status !== 200) {
+                    alert(resData.message)
+                    return;
+                }
+                dispatch({type: actionType.GET_ALL_ISSUES, payload: resData.issues})
+            });
 
     }, [])
 

@@ -5,6 +5,19 @@ form {
     margin-right: 64px;
 }
 
+form * {
+    align-self: center;
+}
+
+label {
+    font-size: 20px;
+}
+
 input, textarea {
     margin-bottom: 32px;
+    width: 50%;
+}
+
+.form--button {
+    padding: 8px 16px;
 }

@@ -28,12 +28,13 @@ function CreateIssue(props) {
                 title: titleInput.current.value,
                 description: descriptionInput.current.value
             })
-        }).then(res => {
-            if (res.status !== 201) {
-                throw new Error('Failed to create new issue.');
+        })
+            .then(res => res.json())
+            .then(resData => {
+            if(resData.status !== 201) {
+                alert(resData.message)
+                return;
             }
-            return res.json();
-        }).then(resData => {
             dispatch({type: actionType.ADD_ISSUE, payload: resData.issue})
             navigate("/")
         })
@@ -45,7 +46,7 @@ function CreateIssue(props) {
             <input id="title" type="text" ref={titleInput}/>
             <label htmlFor="description">Description</label>
             <textarea id="description" ref={descriptionInput}/>
-            <button type="submit">
+            <button className="form--button" type="submit">
                 Create issue
             </button>
         </form>
