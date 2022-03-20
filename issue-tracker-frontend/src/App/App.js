@@ -4,6 +4,7 @@ import CreateIssue from "../CreateIssue/CreateIssue";
 import {useEffect, useReducer} from "react";
 import {actionType, issueState} from "../utils/constants";
 import IssuesBoard from "../IssueBoard/IssuesBoard";
+import structuredClone from '@ungap/structured-clone';
 
 /**
  * Component creates general structure of the page and manages lists of issues
@@ -30,7 +31,7 @@ function App() {
             <nav>
                 <ul className="nav-list">
                     <li className="nav-list__item">
-                        <Link to="/">Issue board</Link>
+                        <Link to="/">Issues board</Link>
                     </li>
                     <li className="nav-list__item">
                         <Link to="/createIssue">Create Issue</Link>
