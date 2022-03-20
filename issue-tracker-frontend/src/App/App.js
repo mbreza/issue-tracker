@@ -16,7 +16,7 @@ function App() {
         fetch("http://localhost:8080/issue/getAll")
             .then(res => res.json())
             .then(resData => {
-                if(resData.status !== 200) {
+                if (resData.status !== 200) {
                     alert(resData.message)
                     return;
                 }
@@ -53,7 +53,6 @@ const initialState = {openIssues: [], pendingIssues: [], closedIssues: []};
 
 /**
  * Reducer is a central management place for issues list.
- * TODO: reducer assumes that all the that it receives are correct, so it needs more error handling.
  */
 function reducer(state, action) {
     switch (action.type) {
@@ -66,25 +65,35 @@ function reducer(state, action) {
             const stateToUpdate = structuredClone(state);
             if (action.payload.state === issueState.PENDING) {
                 const indexToRemove = stateToUpdate.openIssues.findIndex(issue => issue._id === action.payload._id);
-                stateToUpdate.openIssues.splice(indexToRemove, 1);
-                stateToUpdate.pendingIssues.push(action.payload);
+                if (indexToRemove !== -1) {
+                    stateToUpdate.openIssues.splice(indexToRemove, 1);
+                    stateToUpdate.pendingIssues.push(action.payload);
+                }
             } else if (action.payload.state === issueState.CLOSED) {
                 const indexToRemove = stateToUpdate.pendingIssues.findIndex(issue => issue._id === action.payload._id);
-                stateToUpdate.pendingIssues.splice(indexToRemove, 1);
-                stateToUpdate.closedIssues.push(action.payload);
+                if (indexToRemove !== -1) {
+                    stateToUpdate.pendingIssues.splice(indexToRemove, 1);
+                    stateToUpdate.closedIssues.push(action.payload);
+                }
             }
             return stateToUpdate;
         case actionType.DELETE_ISSUE:
             const stateToDelete = structuredClone(state);
             if (action.payload.state === issueState.OPEN) {
                 const indexToRemove = stateToDelete.openIssues.findIndex(issue => issue._id === action.payload._id);
-                stateToDelete.openIssues.splice(indexToRemove, 1)
+                if (indexToRemove !== -1) {
+                    stateToDelete.openIssues.splice(indexToRemove, 1)
+                }
             } else if (action.payload.state === issueState.PENDING) {
                 const indexToRemove = stateToDelete.pendingIssues.findIndex(issue => issue._id === action.payload._id);
-                stateToDelete.pendingIssues.splice(indexToRemove, 1)
+                if (indexToRemove !== -1) {
+                    stateToDelete.pendingIssues.splice(indexToRemove, 1)
+                }
             } else if (action.payload.state === issueState.CLOSED) {
                 const indexToRemove = stateToDelete.closedIssues.findIndex(issue => issue._id === action.payload._id);
-                stateToDelete.closedIssues.splice(indexToRemove, 1)
+                if (indexToRemove !== -1) {
+                    stateToDelete.closedIssues.splice(indexToRemove, 1)
+                }
             }
             return stateToDelete;
         case actionType.ADD_ISSUE:

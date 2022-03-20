@@ -76,7 +76,7 @@ export const deleteIssue = async (req, res) => {
     try {
         await Issue.findByIdAndRemove(req.params.issueId);
         res.status(200).json({status: 200, message: 'Issue deleted.'});
-        return {status: 200, message: 'Issue deleted.'};
+        return {status: 200, message: "Issue deleted."};
     } catch (e) {
         console.log(e);
         res.status(500).json({status: 500, message: "Unable to delete issue."});
