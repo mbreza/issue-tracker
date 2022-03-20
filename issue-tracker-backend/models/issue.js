@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 
 const {Schema} = mongoose;
 
+/**
+ * Schema represents document present in Issue collection.
+ */
 const issueSchema = new Schema(
     {
         title: {

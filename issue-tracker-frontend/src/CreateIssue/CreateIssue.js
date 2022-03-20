@@ -3,6 +3,10 @@ import {useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import {actionType} from "../utils/constants";
 
+/**
+ * Component creates form that is used to create new issues.
+ * TODO: Form is missing validation.
+ */
 function CreateIssue(props) {
     const {dispatch} = props;
     const titleInput = useRef();
@@ -40,7 +44,7 @@ function CreateIssue(props) {
             <label htmlFor="title">Title</label>
             <input id="title" type="text" ref={titleInput}/>
             <label htmlFor="description">Description</label>
-            <textarea id="description" type="text" ref={descriptionInput}/>
+            <textarea id="description" ref={descriptionInput}/>
             <button type="submit">
                 Create issue
             </button>

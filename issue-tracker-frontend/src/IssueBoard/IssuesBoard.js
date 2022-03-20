@@ -1,12 +1,15 @@
-import "./IssueBoard.css"
+import "./IssuesBoard.css"
 import Issue from "./Issue/Issue";
 
-function IssueBoard(props) {
+/**
+ * Component creates board of issues divided by state.
+ */
+function IssuesBoard(props) {
     const {state, dispatch} = props
 
     return (
         <>
-            <h1>Issue Board</h1>
+            <h1>Issues Board</h1>
             <div className="issue-board">
                 <div className="issue-board__column">
                     <h2>Open issues</h2>
@@ -31,4 +34,4 @@ function IssueBoard(props) {
     );
 }
 
-export default IssueBoard;
+export default IssuesBoard;

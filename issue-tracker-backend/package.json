@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --detectOpenHandles ",
     "start": "nodemon server.js"
   },
   "author": "",
@@ -16,6 +16,12 @@
     "mongoose": "^6.2.7"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
+    "mongodb-memory-server": "^8.4.1",
     "nodemon": "^2.0.15"
+  },
+  "jest": {
+    "transform": {},
+    "testEnvironment": "jest-environment-node"
   }
 }

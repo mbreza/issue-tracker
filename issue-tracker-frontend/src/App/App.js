@@ -3,8 +3,12 @@ import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import CreateIssue from "../CreateIssue/CreateIssue";
 import {useEffect, useReducer} from "react";
 import {actionType, issueState} from "../utils/constants";
-import IssueBoard from "../IssueBoard/IssueBoard";
+import IssuesBoard from "../IssueBoard/IssuesBoard";
 
+/**
+ * Component creates general structure of the page and manages lists of issues
+ * that are divided by status.
+ */
 function App() {
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -34,7 +38,7 @@ function App() {
             </nav>
             <main>
                 <Routes>
-                    <Route path="/" element={<IssueBoard state={state} dispatch={dispatch}/>}/>
+                    <Route path="/" element={<IssuesBoard state={state} dispatch={dispatch}/>}/>
                     <Route path="/createIssue" element={<CreateIssue dispatch={dispatch}/>}/>
                 </Routes>
             </main>
@@ -46,6 +50,10 @@ export default App;
 
 const initialState = {openIssues: [], pendingIssues: [], closedIssues: []};
 
+/**
+ * Reducer is a central management place for issues list.
+ * TODO: reducer assumes that all the that it receives are correct, so it needs more error handling.
+ */
 function reducer(state, action) {
     switch (action.type) {
         case actionType.GET_ALL_ISSUES:

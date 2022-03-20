@@ -1,6 +1,9 @@
 import {actionType} from "../../utils/constants";
 import "./Issue.css"
 
+/**
+ * Component creates issues and sends request to backend to update or delete issue.
+ */
 function Issue(props) {
     const {issue, dispatch, updateText} = props;
     const {title, description, state, _id} = issue;
