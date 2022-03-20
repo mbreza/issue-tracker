@@ -35,7 +35,7 @@ function App() {
             <main>
                 <Routes>
                     <Route path="/" element={<IssueBoard state={state} dispatch={dispatch}/>}/>
-                    <Route path="/createIssue" element={<CreateIssue/>}/>
+                    <Route path="/createIssue" element={<CreateIssue dispatch={dispatch}/>}/>
                 </Routes>
             </main>
         </Router>
@@ -78,6 +78,10 @@ function reducer(state, action) {
                 stateToDelete.closedIssues.splice(indexToRemove, 1)
             }
             return stateToDelete;
+        case actionType.ADD_ISSUE:
+            const newOpenIssues = structuredClone(state.openIssues);
+            newOpenIssues.push(action.payload);
+            return {...state, openIssues: newOpenIssues}
         default:
             throw new Error();
     }

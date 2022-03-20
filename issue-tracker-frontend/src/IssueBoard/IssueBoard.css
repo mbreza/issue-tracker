@@ -2,6 +2,10 @@ h1, h2 {
     text-align: center;
 }
 
+h2 {
+    margin-left: 32px;
+}
+
 .issue-board {
     margin: 64px;
     display: flex;

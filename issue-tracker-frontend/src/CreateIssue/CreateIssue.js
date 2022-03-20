@@ -1,14 +1,19 @@
 import "./CreateIssue.css"
 import {useRef} from "react";
+import {useNavigate} from "react-router-dom";
+import {actionType} from "../utils/constants";
 
-function CreateIssue() {
+function CreateIssue(props) {
+    const {dispatch} = props;
     const titleInput = useRef();
     const descriptionInput = useRef();
+    const navigate = useNavigate();
 
     const createIssue = e => {
         e.preventDefault();
         if (!titleInput.current.value || !descriptionInput.current.value) {
             alert("Form has empty fields");
+            return;
         }
         fetch("http://localhost:8080/issue/create", {
             method: "POST",
@@ -21,11 +26,12 @@ function CreateIssue() {
             })
         }).then(res => {
             if (res.status !== 201) {
-                alert("Failed to create issue.");
+                throw new Error('Failed to create new issue.');
             }
             return res.json();
         }).then(resData => {
-            console.log(resData);
+            dispatch({type: actionType.ADD_ISSUE, payload: resData.issue})
+            navigate("/")
         })
     }
 
@@ -34,7 +40,7 @@ function CreateIssue() {
             <label htmlFor="title">Title</label>
             <input id="title" type="text" ref={titleInput}/>
             <label htmlFor="description">Description</label>
-            <input id="description" type="text" ref={descriptionInput}/>
+            <textarea id="description" type="text" ref={descriptionInput}/>
             <button type="submit">
                 Create issue
             </button>
