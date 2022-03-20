@@ -1,3 +1,4 @@
+import "./CreateIssue.css"
 import {useRef} from "react";
 
 function CreateIssue() {

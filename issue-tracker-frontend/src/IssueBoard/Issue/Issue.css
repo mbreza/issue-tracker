@@ -1,0 +1,12 @@
+.issue {
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+    padding: 16px;
+    text-align: center;
+    border: 2px solid black;
+}
+
+.issue * {
+    margin-bottom: 8px;
+}

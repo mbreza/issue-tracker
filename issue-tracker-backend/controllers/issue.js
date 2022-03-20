@@ -60,6 +60,6 @@ export const deleteIssue = async (req, res) => {
         res.status(200).json({ message: 'Issue deleted.'});
     } catch (e) {
         console.log(e);
-        return res.status(500).json({message: "Unable to retrieve issues."})
+        return res.status(500).json({message: "Unable to delete issue."})
     }
 };

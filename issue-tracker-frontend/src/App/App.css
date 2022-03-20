@@ -1,0 +1,28 @@
+nav {
+    height: 64px;
+    background: blue;
+}
+
+.nav-list {
+    list-style-type: none;
+    display: flex;
+    line-height: 32px;
+    font-size: 24px;
+    padding-top: 16px;
+    padding-left: 0;
+}
+
+.nav-list__item {
+    padding-left: 32px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+
+}
+
+main {
+    margin-top: 64px;
+    align-content: center;
+}

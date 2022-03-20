@@ -1,0 +1,16 @@
+h1, h2 {
+    text-align: center;
+}
+
+.issue-board {
+    margin: 64px;
+    display: flex;
+}
+
+.issue-board__column {
+    width: 33%;
+}
+
+.issue-board__list {
+    list-style-type: none;
+}
