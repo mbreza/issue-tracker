@@ -26,8 +26,8 @@ describe("Testing Issues controller", () => {
                 description: "Test description",
             },
         };
-        const issue = await createIssue(req, res)
-        issueId =issue._id.toString();
+        const createdIssue = await createIssue(req, res)
+        issueId = createdIssue.issue._id.toString();
     });
 
     afterEach(async () => {
@@ -50,27 +50,31 @@ describe("Testing Issues controller", () => {
             },
         };
         const createdIssue = await createIssue(req, res)
-        expect(createdIssue.title).toBe("title");
-        expect(createdIssue.description).toBe("description");
-        expect(createdIssue.state).toBe(state.OPEN);
+        expect(createdIssue.issue.title).toBe("title");
+        expect(createdIssue.issue.description).toBe("description");
+        expect(createdIssue.issue.state).toBe(state.OPEN);
+        expect(createdIssue.status).toBe(201);
     });
 
     it("Should get list of issues", async () => {
-        const issues = await getIssues({}, res);
-        expect(issues.length).toBe(1);
-        expect(issues[0].title).toBe("Test title");
+        const issuesResponse = await getIssues({}, res);
+        expect(issuesResponse.issues.length).toBe(1);
+        expect(issuesResponse.issues[0].title).toBe("Test title");
+        expect(issuesResponse.status).toBe(200);
     });
 
     it("Should update issue state", async () => {
         const updatedIssue = await updateState({params: {issueId: issueId}}, res);
-        expect(updatedIssue._doc.state).toBe(state.PENDING);
+        expect(updatedIssue.issue._doc.state).toBe(state.PENDING);
+        expect(updatedIssue.status).toBe(200);
     });
 
     it("Should delete issue", async () => {
         const deletedMessage = await deleteIssue({params: {issueId: issueId}}, res);
         expect(deletedMessage.message).toBe("Issue deleted.");
+        expect(deletedMessage.status).toBe(200);
 
-        const issues = await getIssues({}, res);
-        expect(issues.length).toBe(0);
+        const issuesList = await getIssues({}, res);
+        expect(issuesList.issues.length).toBe(0);
     });
 })

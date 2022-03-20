@@ -14,14 +14,12 @@ export const createIssue = async (req, res) => {
 
     try {
         await issue.save();
-        res.status(201).json({
-            status: 201,
-            issue: issue
-        });
-        return issue;
+        res.status(201).json({status: 201, issue: issue});
+        return {status: 201, issue: issue};
     } catch (e) {
         console.log(e);
-        return res.status(500).json({status: 500, message: "Unable to create issue."})
+        res.status(500).json({status: 500, message: "Unable to create issue."});
+        return {status: 500, message: "Unable to create issue."};
     }
 };
 
@@ -32,14 +30,12 @@ export const createIssue = async (req, res) => {
 export const getIssues = async (req, res) => {
     try {
         const issues = await Issue.find();
-        res.status(200).json({
-            status: 200,
-            issues: issues
-        });
-        return issues;
+        res.status(200).json({status: 200, issues: issues});
+        return {status: 200, issues: issues};
     } catch (e) {
         console.log(e);
-        return res.status(500).json({status: 500, message: "Unable to retrieve issues."})
+        res.status(500).json({status: 500, message: "Unable to retrieve issues."});
+        return {status: 500, message: "Unable to retrieve issues."};
     }
 };
 
@@ -51,21 +47,24 @@ export const updateState = async (req, res) => {
     try {
         const issue = await Issue.findById(req.params.issueId);
         if (!issue) {
-            return res.status(404).json({status: 404, message: "Unable to find issue."})
+            res.status(404).json({status: 404, message: "Unable to find issue."});
+            return {status: 404, message: "Unable to find issue."};
         }
         if (issue.state === state.OPEN) {
-            issue.state = state.PENDING
+            issue.state = state.PENDING;
         } else if (issue.state === state.PENDING) {
-            issue.state = state.CLOSED
+            issue.state = state.CLOSED;
         } else {
-            return res.status(422).json({status: 422, message: "Unable to update state."})
+            res.status(422).json({status: 422, message: "Unable to update state."});
+            return {status: 422, message: "Unable to update state."};
         }
         const modifiedIssue = await issue.save();
         res.status(200).json({status: 200, issue: modifiedIssue });
-        return modifiedIssue;
+        return {status: 200, issue: modifiedIssue };
     } catch (e) {
         console.log(e);
-        return res.status(500).json({status: 500, message: "Unable to retrieve issues."})
+        res.status(500).json({status: 500, message: "Unable to retrieve issues."});
+        return {status: 500, message: "Unable to retrieve issues."};
     }
 };
 
@@ -77,9 +76,10 @@ export const deleteIssue = async (req, res) => {
     try {
         await Issue.findByIdAndRemove(req.params.issueId);
         res.status(200).json({status: 200, message: 'Issue deleted.'});
-        return {message: "Issue deleted."};
+        return {status: 200, message: 'Issue deleted.'};
     } catch (e) {
         console.log(e);
-        return res.status(500).json({status: 500, message: "Unable to delete issue."})
+        res.status(500).json({status: 500, message: "Unable to delete issue."});
+        return {status: 500, message: "Unable to delete issue."};
     }
 };
