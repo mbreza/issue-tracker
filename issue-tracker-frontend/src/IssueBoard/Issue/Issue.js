@@ -15,10 +15,10 @@ function Issue(props) {
             .then(res => res.json())
             .then(resData => {
                 if (resData.status !== 200) {
-                    alert(resData.message)
+                    alert(resData.message);
                     return;
                 }
-                dispatch({type: actionType.UPDATE_STATE, payload: resData.issue})
+                dispatch({type: actionType.UPDATE_STATE, payload: resData.issue});
             });
     }
 
@@ -29,7 +29,7 @@ function Issue(props) {
             .then(res => res.json())
             .then(resData => {
                 if (resData.status !== 200) {
-                    alert(resData.message)
+                    alert(resData.message);
                     return;
                 }
                 dispatch({type: actionType.DELETE_ISSUE, payload: {_id: issueId, state: state}});

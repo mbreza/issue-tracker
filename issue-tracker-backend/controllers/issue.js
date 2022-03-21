@@ -3,7 +3,7 @@ import {state} from "../utils/constants.js";
 
 /**
  * Function creates issues with initial state OPEN
- *  @returns {Object} - Created issue.
+ *  @returns {Object} - Created issue or error message.
  */
 export const createIssue = async (req, res) => {
     const issue = new Issue({
@@ -25,7 +25,7 @@ export const createIssue = async (req, res) => {
 
 /**
  * Function retrieves all issues from DB
- *  @returns {Object} - Object containing list of issues.
+ *  @returns {Object} - Object containing list of issues  or error message.
  */
 export const getIssues = async (req, res) => {
     try {
@@ -41,7 +41,7 @@ export const getIssues = async (req, res) => {
 
 /**
  * Function retrieves all issues from DB
- *  @returns {Object} - Object modified by DB.
+ *  @returns {Object} - Object modified by DB  or error message.
  */
 export const updateState = async (req, res) => {
     try {
@@ -59,8 +59,8 @@ export const updateState = async (req, res) => {
             return {status: 422, message: "Unable to update state."};
         }
         const modifiedIssue = await issue.save();
-        res.status(200).json({status: 200, issue: modifiedIssue });
-        return {status: 200, issue: modifiedIssue };
+        res.status(200).json({status: 200, issue: modifiedIssue});
+        return {status: 200, issue: modifiedIssue};
     } catch (e) {
         console.log(e);
         res.status(500).json({status: 500, message: "Unable to retrieve issues."});
@@ -70,7 +70,7 @@ export const updateState = async (req, res) => {
 
 /**
  * Function retrieves all issues from DB
- *  @returns {Object} - Message with string confirming issue deletion.
+ *  @returns {Object} - Message with string confirming issue deletion  or error message.
  */
 export const deleteIssue = async (req, res) => {
     try {

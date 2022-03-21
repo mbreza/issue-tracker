@@ -21,3 +21,7 @@ Each issue has buttons that allow users to change the status and remove the issu
 - use SASS or styled components instead of CSS
 - use WebSocket to introduce dynamic updates of the board without reloading the page
 - use tools like Babel to write modern JavaScript and have better testing setup on the backend
+- introduce CSS for smaller breakpoints
+- accessibility improvements like better outline, focus management or aria attributes with additional information
+- use tools like prettier and eslint for formatting and analyzing the code
+- pre-commit hook that runs eslint

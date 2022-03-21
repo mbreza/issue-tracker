@@ -5,7 +5,7 @@ import Issue from "./Issue/Issue";
  * Component creates board of issues divided by state.
  */
 function IssuesBoard(props) {
-    const {state, dispatch} = props
+    const {state, dispatch} = props;
 
     return (
         <>

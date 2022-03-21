@@ -31,25 +31,28 @@ function CreateIssue(props) {
         })
             .then(res => res.json())
             .then(resData => {
-            if(resData.status !== 201) {
-                alert(resData.message)
-                return;
-            }
-            dispatch({type: actionType.ADD_ISSUE, payload: resData.issue})
-            navigate("/")
-        })
+                if (resData.status !== 201) {
+                    alert(resData.message);
+                    return;
+                }
+                dispatch({type: actionType.ADD_ISSUE, payload: resData.issue});
+                navigate("/");
+            })
     }
 
     return (
-        <form onSubmit={createIssue}>
-            <label htmlFor="title">Title</label>
-            <input id="title" type="text" ref={titleInput}/>
-            <label htmlFor="description">Description</label>
-            <textarea id="description" ref={descriptionInput}/>
-            <button className="form--button" type="submit">
-                Create issue
-            </button>
-        </form>
+        <>
+            <h1>Create Issue</h1>
+            <form onSubmit={createIssue}>
+                <label htmlFor="title">Title</label>
+                <input id="title" type="text" ref={titleInput}/>
+                <label htmlFor="description">Description</label>
+                <textarea id="description" ref={descriptionInput}/>
+                <button className="form--button" type="submit">
+                    Create issue
+                </button>
+            </form>
+        </>
     );
 }
 
