@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import CreateIssue from "../CreateIssue/CreateIssue";
 import {useEffect, useReducer} from "react";
 import {actionType, issueState} from "../utils/constants";
-import IssuesBoard from "../IssueBoard/IssuesBoard";
+import IssuesBoard from "../IssuesBoard/IssuesBoard";
 import structuredClone from '@ungap/structured-clone';
 
 /**
